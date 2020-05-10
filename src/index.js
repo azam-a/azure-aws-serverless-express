@@ -9,6 +9,13 @@ export default function azureFunctionHandler(app, binaryTypes) {
   return (context, req) => {
     const path = url.parse(req.originalUrl).pathname;
 
+    try {
+      req.headers['x-ms-privatelink-id'] = 'fake-id';
+    }
+    catch (error) {
+      console.log('do nothing');
+    }
+
     const event = {
       path: path,
       httpMethod: req.method,
